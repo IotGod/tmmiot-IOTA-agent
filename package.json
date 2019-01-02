@@ -7,7 +7,15 @@
     "start": "mam_publish.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["DHT11", "sensor", "IOTA", "Tangle", "Masked Authenticated Messaging", "MAM", "Raspberry Pi 3"],
+  "keywords": [
+    "DHT11",
+    "sensor",
+    "IOTA",
+    "Tangle",
+    "Masked Authenticated Messaging",
+    "MAM",
+    "Raspberry Pi 3"
+  ],
   "homepage": "https://www.mobilefish.com/developer/iota/iota_quickguide_raspi_mam.html",
   "author": "Robert Lie",
   "license": "MIT",

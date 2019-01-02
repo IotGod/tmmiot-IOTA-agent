@@ -20,6 +20,11 @@ const IOTA = require('iota.lib.js');
 const moment = require('moment');
 const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
 
+//PM sensor package and init
+const Sensor = require('sds011-client');
+const sensor = new Sensor("/dev/ttyUSB0");
+
+//DHT sensor package and init
 
 var fs = require('fs');
 
