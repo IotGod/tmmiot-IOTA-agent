@@ -18,17 +18,29 @@ https://www.mobilefish.com/developer/iota/iota_quickguide_raspi_mam.html
 const Mam = require('./lib/mam.client.js');
 const IOTA = require('iota.lib.js');
 const moment = require('moment');
-const iota = new IOTA({ provider: 'https://nodes.testnet.iota.org:443' });
+const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
+
+var fs = require('fs');
 
 const MODE = 'restricted'; // public, private or restricted
-const SIDEKEY = 'mysecret'; // Enter only ASCII characters. Used only in restricted mode
+const SIDEKEY = 'jan'; // Enter only ASCII characters. Used only in restricted mode
 const SECURITYLEVEL = 3; // 1, 2 or 3
 const TIMEINTERVAL  = 30; // seconds
 
+//const seed = "AECAMKYRRN9RKQWUQAPQEYODRVNNZFLRESMBIFZUZ9FEGASVDHVFBGTQAYMP9CZZDDVIUCNR9RSXEJWLU";
+//const seed = undefined;
+
+
+
+
 // Initialise MAM State
-let mamState = Mam.init(iota, undefined, SECURITYLEVEL);
+		var mamState = Mam.init(iota, undefined,SECURITYLEVEL);
+		//console.log("first publish on new channel");
+		
+var mamState = JSON.parse(fs.readFileSync("mamState.json"));
 
 // Set channel mode
+
 if (MODE == 'restricted') {
     const key = iota.utils.toTrytes(SIDEKEY);
     mamState = Mam.changeMode(mamState, MODE, key);
@@ -46,10 +58,20 @@ const publish = async function(packet) {
     mamState = message.state;
     console.log('Root: ', message.root);
     console.log('Address: ', message.address);
+	console.log('message: ', JSON.stringify(message))
+
 
     // Attach the payload.
     await Mam.attach(message.payload, message.address);
 
+	    fs.writeFile("mamState.json", JSON.stringify(mamState), function(err, data) {
+    	if (err) {
+    		console.log("err: " + err);
+		} else {
+			console.log("data:" + JSON.stringify(data));
+		}
+		});
+	
     return message.root;
 }
 
@@ -57,7 +79,7 @@ const generateJSON = function() {
     // Generate some random numbers simulating sensor data
     const data = Math.floor((Math.random()*89)+10);
     const dateTime = moment().utc().format('DD/MM/YYYY hh:mm:ss');
-    const json = {"data": data, "dateTime": dateTime};
+    const json = {"data": data, "dateTime": dateTime, "owner": "jan"};
     return json;
 }
 
@@ -70,6 +92,6 @@ const executeDataPublishing = async function() {
 }
 
 // Start it immediately
-executeDataPublishing();
+//executeDataPublishing();
 
 setInterval(executeDataPublishing, TIMEINTERVAL*1000);
