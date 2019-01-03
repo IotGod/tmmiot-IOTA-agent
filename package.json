@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "iota.lib.js": "^0.4.7",
-    "moment": "^2.22.2"
+    "rpi-dht-sensor": "^0.1.1",
+    "sds011-client": "^1.0.1"
   }
 }
