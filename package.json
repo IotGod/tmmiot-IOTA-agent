@@ -1,14 +1,13 @@
 {
-  "name": "dht11-raspi3",
+  "name": "tmmiot-iota-mam-agent",
   "version": "1.0.0",
-  "description": "Send DHT11 sensor data to the IOTA Tangle using MAM and Raspberry Pi 3",
+  "description": "Send sensor data to the tangle",
   "main": "mam_publish.js",
   "scripts": {
     "start": "mam_publish.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "DHT11",
     "sensor",
     "IOTA",
     "Tangle",
@@ -16,8 +15,7 @@
     "MAM",
     "Raspberry Pi 3"
   ],
-  "homepage": "https://www.mobilefish.com/developer/iota/iota_quickguide_raspi_mam.html",
-  "author": "Robert Lie",
+  "author": "jhab82",
   "license": "MIT",
   "dependencies": {
     "iota.lib.js": "^0.4.7",
