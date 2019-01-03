@@ -1,12 +1,7 @@
 const Mam = require('./lib/mam.client.js');
 const IOTA = require('iota.lib.js');
-const moment = require('moment');
 const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
-
-
-//require filesystem for later storing our mamState
 var fs = require('fs');
-// Initialise MAM State
 
 
 var readline = require('readline');
