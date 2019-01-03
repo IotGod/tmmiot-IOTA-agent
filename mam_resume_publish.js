@@ -4,11 +4,10 @@ const moment = require('moment');
 const iota = new IOTA({ provider: 'https://nodes.devnet.iota.org:443' });
 
 
-//creation of the filesystem for later storing our mamState
+//require filesystem for later storing our mamState
 var fs = require('fs');
 // Initialise MAM State
-var mamState = Mam.init(iota, undefined, 1);
-mamState = Mam.changeMode(mamState, "public");
+
 
 var readline = require('readline');
 var rl = readline.createInterface( {
@@ -19,16 +18,19 @@ var rl = readline.createInterface( {
 rl.question("Do you like to start a new channel (y/n)=", function(answer)  {
 	if (answer === "y") {
 		rl.close();
+        var mamState = Mam.init(iota, undefined, 1);
+        mamState = Mam.changeMode(mamState, "public");
 		console.log("ok start over again");
 		executeDataPublishing(mamState)
-	        setInterval(executeDataPublishing(mamState), 15*1000);
+	    setInterval(function() { executeDataPublishing(mamState); } , 15*1000);
 	} else if (answer ==="n") {
 		rl.close();
 		console.log("read the latest mamState");
-		var mamState = JSON.parse(fs.readFileSync("mamState.json"));
+        var mamState = Mam.init(iota, undefined, 1);
+		mamState = JSON.parse(fs.readFileSync("mamState.json"));
 		mamState = Mam.changeMode(mamState, "public");
 		executeDataPublishing(mamState)
-	        setInterval(executeDataPublishing(mamState), 15*1000);
+	    setInterval(function() { executeDataPublishing(mamState); } , 15*1000);
 
 	} else {
 		console.log("exit as no correct answer");
