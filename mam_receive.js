@@ -18,10 +18,10 @@ https://www.mobilefish.com/developer/iota/iota_quickguide_raspi_mam.html
 
 const Mam = require('./lib/mam.client.js');
 const IOTA = require('iota.lib.js');
-const iota = new IOTA({ provider: 'https://testnet140.tangle.works' });
+const iota = new IOTA({ provider: 'https://nodes.devnet.thetangle.org:443'});
 
 const MODE = 'restricted'; // public, private or restricted
-const SIDEKEY = 'jan'; // Enter only ASCII characters. Used only in restricted mode
+const SIDEKEY = 'tmmiot-iota-sideky'; // Enter only ASCII characters. Used only in restricted mode
 
 let root;
 let key;
@@ -44,7 +44,6 @@ let mamState = Mam.init(iota);
 // Set channel mode
 if (MODE == 'restricted') {
     key = iota.utils.toTrytes(SIDEKEY);
-	console.log(key);
     mamState = Mam.changeMode(mamState, MODE, key);
 } else {
     mamState = Mam.changeMode(mamState, MODE);
